@@ -22,6 +22,8 @@ public class Gun : MonoBehaviour
     public Camera fpsCam;
     public ParticleSystem muzzleFlash;
 
+    public int weaponDamage;
+
     private void Start()
     {
         currentAmmo = magSize;
@@ -44,6 +46,8 @@ public class Gun : MonoBehaviour
         currentAmmo--;
 
         Instantiate(bullet, bulletSpawnPoint.position, bulletSpawnPoint.rotation);
+
+        muzzleFlash.Play();
     }
 
     IEnumerator Reload()
@@ -81,4 +85,6 @@ public class Gun : MonoBehaviour
 
         StartCoroutine(Reload());
     }
+
+
 }

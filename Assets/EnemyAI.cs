@@ -27,12 +27,18 @@ public class EnemyAI : MonoBehaviour
     private bool isIdle;
     private bool isAttacking;
 
+    private Zombie zombie;
+
     private enum State { Patrol, Chase, Attack }
     private State currentState;
 
     void Start()
     {
         agent = GetComponent<NavMeshAgent>();
+
+        //added
+        zombie = GetComponent<Zombie>();
+
         if (animator == null) animator = GetComponent<Animator>();
         if (playerHealth == null && player != null) playerHealth = player.GetComponent<PlayerHealth>();
 
@@ -42,6 +48,10 @@ public class EnemyAI : MonoBehaviour
 
     void Update()
     {
+
+        //added 
+        if (zombie != null && zombie.IsDead) return;
+
         cooldownTimer -= Time.deltaTime;
 
         float distanceToPlayer = Vector3.Distance(transform.position, player.position);
